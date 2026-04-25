@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud — App</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<div class="screen" id="screen-app">
+  <nav class="sidebar">
+    <div class="sb-top">
+      <div class="sb-logo">☁ Cloud</div>
+      <button class="sb-logout" onclick="logout()">logout</button>
+      <div class="sb-user" id="sb-user-name">Welcome!</div>
+    </div>
+    <div class="back-to-land" onclick="goToLanding()">← Back to landing</div>
+
+    <div class="widget">
+      <div class="wt">⛅ Weather</div>
+      <div class="wx-row">
+        <div class="wx-icon" id="wx-icon">🌤</div>
+        <div><div class="wx-temp" id="wx-temp">—°</div>
+          <div class="wx-desc" id="wx-desc">Loading…</div>
+          <div class="wx-loc" id="wx-loc">Detecting…</div></div>
+      </div>
+    </div>
+
+    <div class="widget" style="margin-top:6px;">
+      <div class="wt">💡 Health Tip</div>
+      <span class="tip-icon" id="tip-icon">🥤</span>
+      <div class="tip-txt" id="tip-txt">Loading…</div>
+    </div>
+
+    <div class="widget" style="margin-top:6px;flex:0 0 auto;max-height:160px;overflow:hidden;">
+      <div class="wt">🎯 Goals</div>
+      <div id="goals-list" style="overflow-y:auto;max-height:90px;"></div>
+      <button class="add-goal" onclick="addGoal()">+ add goal</button>
+    </div>
+
+    <div class="theme-picker widget" style="margin-top:6px;">
+      <div class="wt">🎨 Theme</div>
+      <div class="theme-dots">
+        <div class="theme-dot active" data-theme="ghibli" title="Ghibli" onclick="setTheme('ghibli')"></div>
+        <div class="theme-dot" data-theme="sunset" title="Sunset" onclick="setTheme('sunset')"></div>
+        <div class="theme-dot" data-theme="ocean" title="Ocean" onclick="setTheme('ocean')"></div>
+        <div class="theme-dot" data-theme="rose" title="Rose" onclick="setTheme('rose')"></div>
+        <div class="theme-dot" data-theme="night" title="Night" onclick="setTheme('night')"></div>
+      </div>
+    </div>
+
+    <div class="sb-char-area">
+      <div class="sb-ground"></div>
+      <div class="sb-char" id="sb-char"></div>
+    </div>
+  </nav>
+
+  <div class="main-content" id="main-content">
+    <div class="main-header">
+      <div class="mh-title">☁ My Journal</div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('home')">Home</button>
+        <button class="nav-tab" onclick="showTab('write')">Write</button>
+        <button class="nav-tab" onclick="showTab('entries')">Entries</button>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div id="tab-home" style="overflow-y:auto;">
+      <div class="home-tab">
+        <div class="sec-label">📸 My Polaroids <span style="font-size:9px;opacity:.6;">(max 6 · double-click to enlarge)</span></div>
+        <div class="polaroid-row" id="polaroid-row"></div>
+        <input type="file" id="photo-upload" accept="image/*" style="display:none" onchange="handleUpload(event)">
+
+        <div class="bottom-row">
+          <div class="cal-card" ondblclick="showTab('entries')">
+            <div class="cal-hdr">
+              <button class="cal-nav" onclick="event.stopPropagation();calPrev()">‹</button>
+              <div class="cal-mon" id="cal-mon"></div>
+              <button class="cal-nav" onclick="event.stopPropagation();calNext()">›</button>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+            <div class="cal-hint">double-click → all entries</div>
+          </div>
+          <div class="new-entry-card" onclick="showTab('write')">
+            <div class="ne-icon">✏️</div>
+            <div class="ne-label">New Entry</div>
+            <div class="ne-sub">Click to start writing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WRITE -->
+    <div id="tab-write" style="display:none;overflow-y:auto;">
+      <div class="write-tab">
+        <div class="write-date-bar">
+          <div class="wd-date" id="wd-date"></div>
+          <div class="mood-row">
+            <button class="mood-mb" data-m="5" onclick="pickMood(this)">😄</button>
+            <button class="mood-mb" data-m="4" onclick="pickMood(this)">🙂</button>
+            <button class="mood-mb" data-m="3" onclick="pickMood(this)">😐</button>
+            <button class="mood-mb" data-m="2" onclick="pickMood(this)">😔</button>
+            <button class="mood-mb" data-m="1" onclick="pickMood(this)">😞</button>
+          </div>
+        </div>
+        <input class="write-title" id="write-title" type="text" placeholder="Entry title…">
+        <textarea class="write-body" id="write-body" placeholder="Write freely. This is your space…"></textarea>
+        <div class="write-toolbar">
+          <button class="tool-btn" onclick="ins('**bold**')"><b>B</b></button>
+          <button class="tool-btn" onclick="ins('_italic_')"><i>I</i></button>
+          <button class="tool-btn" onclick="ins('\n• ')">• list</button>
+          <span class="save-ok" id="save-ok">✓ Saved!</span>
+          <button class="save-btn" onclick="saveEntry()">Save Entry →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENTRIES -->
+    <div id="tab-entries" style="display:none;overflow-y:auto;">
+      <div class="entries-tab">
+        <div class="sec-label" style="margin-bottom:14px;">📔 All Entries</div>
+        <div class="entries-wall" id="entries-wall"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-backdrop" onclick="closeLb()"></div>
+  <div class="lb-inner">
+    <div style="position:relative;">
+      <svg class="lb-tape" id="lb-tape-svg" viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="lb-polaroid">
+        <img id="lb-img" src="" alt="">
+        <div class="lb-caption" id="lb-caption"></div>
+      </div>
+    </div>
+    <div class="lb-actions">
+      <button class="lb-btn lb-change" onclick="triggerPhotoChange()">Change Photo</button>
+      <button class="lb-btn lb-close" onclick="closeLb()">Close</button>
+    </div>
+    <div class="lb-tape-row" id="lb-tape-row"></div>
+  </div>
+</div>
+
+<!-- ENTRY DETAIL -->
+<div class="edet-overlay" id="edet" onclick="if(event.target===this)closeEdet()">
+  <div class="edet-box">
+    <div class="edet-hdr">
+      <div>
+        <div class="ec-mood" id="ed-mood" style="font-size:20px;margin-bottom:4px;"></div>
+        <div class="ec-date" id="ed-date" style="font-family:var(--font-pixel);font-size:6px;color:var(--ink-soft);margin-bottom:6px;"></div>
+        <div id="ed-title" style="font-size:20px;font-weight:700;color:var(--ink);"></div>
+      </div>
+      <button class="edet-close" onclick="closeEdet()">✕</button>
+    </div>
+    <div class="edet-body"><div class="edet-text" id="ed-body"></div></div>
+  </div>
+</div>
