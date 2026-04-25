@@ -94,14 +94,8 @@
   @keyframes drift { from{transform:translateX(-50%);} to{transform:translateX(0%);} }
 
   /* Pixel character */
-  .character-wrap {
-    position:absolute; bottom:21%; left:50%; transform:translateX(-50%);
-    animation:bob 5s ease-in-out infinite;
-    image-rendering:pixelated;
-  }
-  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-4px);} }
-  .pixel-canvas { image-rendering:pixelated; image-rendering:crisp-edges; display:block; }
-
+  <img src="assets/your-image-name.jpg">
+ 
   /* Title */
   .title-card { position:absolute; top:12%; left:50%; transform:translateX(-50%); text-align:center; z-index:10; white-space:nowrap; }
   .title-eyebrow { font-family:'Lato',sans-serif; font-weight:300; font-size:0.75rem; letter-spacing:0.35em; color:rgba(240,235,226,0.75); text-transform:uppercase; margin-bottom:10px; }
