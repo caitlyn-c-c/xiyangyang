@@ -85,8 +85,6 @@
     border-radius:2px; animation:fall linear infinite;
   }
   @keyframes fall { to{transform:translateY(110vh) translateX(28px);opacity:0;} }
-
-  <img src="assets/pixel_character)placeholder.png">
   
   .mist-layer {
     position:absolute; width:200%; height:80px;
@@ -128,134 +126,6 @@
     color:rgba(240,235,226,0.38); z-index:10; animation:hintFade 3s ease-in-out infinite; white-space:nowrap;
   }
   @keyframes hintFade { 0%,100%{opacity:0.38;} 50%{opacity:0.7;} }
-
-  /* ══ JOURNAL PAGE ══ */
-  #journal-page { flex-direction:row; min-height:100vh; position:relative; overflow:hidden; background:var(--journal-bg); }
-
-  .journal-scene { position:absolute; inset:0; pointer-events:none; z-index:0; }
-  .journal-sky {
-    position:absolute; inset:0;
-    background:linear-gradient(180deg,#263540 0%,#344d5c 40%,#415e6e 70%,#4e6a78 100%);
-  }
-  .window-pane {
-    position:absolute; inset:0;
-    background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
-    background-size:90px 90px;
-  }
-  .journal-rain { position:absolute; inset:0; overflow:hidden; }
-  .journal-clouds { position:absolute; top:0; left:0; width:100%; height:50%; overflow:hidden; opacity:0.45; }
-  .journal-mountains { position:absolute; bottom:0; width:100%; height:42%; opacity:0.16; }
-  .journal-glow {
-    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-    width:700px; height:350px;
-    background:radial-gradient(ellipse at 50% 100%,rgba(201,184,130,0.14) 0%,rgba(201,184,130,0.05) 50%,transparent 75%);
-  }
-
-  /* Sidebar */
-  .sidebar {
-    width:268px; min-height:100vh;
-    background:rgba(26,38,48,0.84); backdrop-filter:blur(22px);
-    display:flex; flex-direction:column; padding:36px 22px;
-    border-right:1px solid rgba(122,154,181,0.14);
-    flex-shrink:0; position:relative; z-index:2;
-  }
-  .sidebar::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#7a9ab5,#8fa080,#c9b882); }
-  .sidebar-logo { font-family:'EB Garamond',serif; font-size:1.9rem; font-weight:500; color:var(--fog); margin-bottom:3px; }
-  .sidebar-tagline { font-family:'EB Garamond',serif; font-style:italic; font-size:0.82rem; color:rgba(182,205,216,0.42); margin-bottom:32px; }
-
-  .new-entry-btn {
-    display:flex; align-items:center; gap:10px;
-    background:rgba(122,154,181,0.2); color:var(--fog);
-    border:1px solid rgba(122,154,181,0.28); border-radius:12px;
-    padding:12px 18px; font-family:'EB Garamond',serif; font-size:0.95rem;
-    cursor:pointer; transition:all 0.22s; margin-bottom:28px; width:100%;
-  }
-  .new-entry-btn:hover { background:rgba(122,154,181,0.35); transform:translateY(-1px); }
-  .new-entry-btn .plus { font-size:1.2rem; }
-
-  .sidebar-section-title { font-family:'Lato',sans-serif; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(182,205,216,0.3); margin-bottom:10px; padding-left:4px; }
-
-  .entries-list { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:4px; scrollbar-width:thin; scrollbar-color:rgba(122,154,181,0.2) transparent; }
-  .entry-item { padding:11px 13px; border-radius:9px; cursor:pointer; transition:all 0.18s; border:1px solid transparent; }
-  .entry-item:hover { background:rgba(122,154,181,0.12); border-color:rgba(122,154,181,0.15); }
-  .entry-item.active { background:rgba(122,154,181,0.2); border-color:rgba(122,154,181,0.25); }
-  .entry-item-title { font-family:'EB Garamond',serif; font-size:0.92rem; color:var(--fog); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
-  .entry-item-date { font-size:0.67rem; color:rgba(182,205,216,0.38); }
-  .entry-item-mood { font-size:0.72rem; margin-top:3px; }
-
-  .sidebar-bottom { margin-top:16px; padding-top:16px; border-top:1px solid rgba(122,154,181,0.1); }
-  .back-btn { background:none; border:none; color:rgba(182,205,216,0.38); font-family:'EB Garamond',serif; font-style:italic; font-size:0.85rem; cursor:pointer; transition:color 0.2s; padding:0; }
-  .back-btn:hover { color:rgba(182,205,216,0.75); }
-  .swipe-note { font-family:'Lato',sans-serif; font-size:0.57rem; letter-spacing:0.1em; color:rgba(182,205,216,0.18); margin-top:5px; text-transform:uppercase; }
-
-  /* Journal main */
-  .journal-main { flex:1; display:flex; flex-direction:column; overflow-y:auto; position:relative; z-index:2; }
-
-  /* Paper card */
-  .editor-wrap {
-    flex:1; display:flex; flex-direction:column;
-    max-width:700px; width:100%; margin:44px auto;
-    padding:52px 56px;
-    background:rgba(240,235,226,0.93); backdrop-filter:blur(18px);
-    border-radius:3px;
-    box-shadow:0 32px 80px rgba(16,26,36,0.55),0 0 0 1px rgba(255,255,255,0.12),inset 0 1px 0 rgba(255,255,255,0.6);
-    position:relative;
-  }
-  .editor-wrap::before {
-    content:''; position:absolute; inset:52px 56px;
-    background-image:repeating-linear-gradient(180deg,transparent,transparent 37px,rgba(122,154,181,0.1) 37px,rgba(122,154,181,0.1) 38px);
-    pointer-events:none; z-index:0;
-  }
-
-  .mood-row { display:flex; align-items:center; gap:8px; margin-bottom:22px; flex-wrap:wrap; position:relative; z-index:1; }
-  .mood-label { font-family:'Lato',sans-serif; font-size:0.67rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(92,74,58,0.48); margin-right:2px; }
-  .mood-btn { background:none; border:1px solid rgba(92,74,58,0.17); border-radius:40px; padding:5px 13px; font-size:0.82rem; color:rgba(92,74,58,0.52); cursor:pointer; transition:all 0.2s; }
-  .mood-btn:hover,.mood-btn.selected { background:var(--bark); color:var(--parchment); border-color:var(--bark); }
-
-  .entry-date-line { font-family:'EB Garamond',serif; font-style:italic; font-size:0.87rem; color:rgba(92,74,58,0.38); margin-bottom:18px; position:relative; z-index:1; }
-  .entry-title-input { font-family:'EB Garamond',serif; font-size:2.2rem; font-weight:500; color:var(--ink); border:none; background:transparent; outline:none; width:100%; margin-bottom:20px; resize:none; line-height:1.2; position:relative; z-index:1; }
-  .entry-title-input::placeholder { color:rgba(46,42,38,0.2); }
-  .entry-divider { height:1px; background:linear-gradient(90deg,rgba(92,74,58,0.18),transparent); margin-bottom:22px; position:relative; z-index:1; }
-  .entry-body-input { font-family:'EB Garamond',serif; font-size:1.12rem; line-height:1.95; color:var(--ink); border:none; background:transparent; outline:none; width:100%; flex:1; resize:none; min-height:300px; position:relative; z-index:1; }
-  .entry-body-input::placeholder { color:rgba(46,42,38,0.19); font-style:italic; }
-  .editor-toolbar { display:flex; align-items:center; justify-content:space-between; padding-top:18px; border-top:1px solid rgba(92,74,58,0.1); margin-top:18px; position:relative; z-index:1; }
-  .word-count { font-size:0.72rem; color:rgba(92,74,58,0.32); letter-spacing:0.08em; }
-  .save-btn { font-family:'EB Garamond',serif; font-size:0.92rem; color:var(--parchment); background:linear-gradient(135deg,#7a9ab5,#5e7a8a); border:none; border-radius:30px; padding:10px 30px; cursor:pointer; transition:all 0.25s; letter-spacing:0.04em; }
-  .save-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(90,130,155,0.5); }
-  .save-btn.saved { background:linear-gradient(135deg,#7a8c6e,#5e7055); }
-
-  .view-entry { flex:1; display:flex; flex-direction:column; max-width:700px; width:100%; margin:44px auto; padding:52px 56px; background:rgba(240,235,226,0.93); backdrop-filter:blur(18px); border-radius:3px; box-shadow:0 32px 80px rgba(16,26,36,0.55),0 0 0 1px rgba(255,255,255,0.12); }
-  .view-entry-mood { font-size:1.1rem; margin-bottom:8px; }
-  .view-entry-date { font-family:'EB Garamond',serif; font-style:italic; font-size:0.87rem; color:rgba(92,74,58,0.42); margin-bottom:18px; }
-  .view-entry-title { font-family:'EB Garamond',serif; font-size:2.2rem; font-weight:500; color:var(--ink); margin-bottom:22px; line-height:1.2; }
-  .view-entry-divider { height:1px; background:linear-gradient(90deg,rgba(92,74,58,0.18),transparent); margin-bottom:22px; }
-  .view-entry-body { font-family:'EB Garamond',serif; font-size:1.12rem; line-height:1.95; color:var(--ink); white-space:pre-wrap; flex:1; }
-  .view-entry-actions { display:flex; gap:10px; margin-top:34px; }
-  .edit-btn { font-family:'EB Garamond',serif; font-size:0.92rem; background:none; border:1px solid rgba(92,74,58,0.22); border-radius:30px; padding:9px 26px; color:var(--bark); cursor:pointer; transition:all 0.2s; }
-  .edit-btn:hover { background:rgba(92,74,58,0.07); }
-  .delete-btn { font-family:'EB Garamond',serif; font-size:0.92rem; background:none; border:1px solid rgba(160,60,60,0.22); border-radius:30px; padding:9px 26px; color:rgba(148,55,55,0.7); cursor:pointer; transition:all 0.2s; }
-  .delete-btn:hover { background:rgba(160,60,60,0.06); }
-
-  .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:80px 40px; text-align:center; color:rgba(182,205,216,0.48); }
-  .empty-state-glyph { font-size:2.5rem; margin-bottom:18px; opacity:0.45; }
-  .empty-state h2 { font-family:'EB Garamond',serif; font-size:1.5rem; font-weight:400; font-style:italic; color:rgba(182,205,216,0.52); margin-bottom:10px; }
-  .empty-state p { font-size:0.85rem; line-height:1.7; max-width:300px; }
-
-  .page-transition { position:fixed; inset:0; background:#3a5060; z-index:999; opacity:0; pointer-events:none; transition:opacity 0.38s ease; }
-  .page-transition.in { opacity:1; pointer-events:all; }
-
-  .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:rgba(26,38,48,0.95); color:var(--fog); font-family:'EB Garamond',serif; font-style:italic; font-size:0.92rem; padding:11px 26px; border-radius:40px; border:1px solid rgba(122,154,181,0.22); z-index:9999; transition:transform 0.35s cubic-bezier(.34,1.56,.64,1),opacity 0.35s; opacity:0; backdrop-filter:blur(12px); }
-  .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
-
-  ::-webkit-scrollbar { width:4px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:rgba(122,154,181,0.18); border-radius:4px; }
-</style>
-</head>
-<body>
-
-<div class="page-transition" id="transition"></div>
-<div class="toast" id="toast"></div>
 
 <!-- ══ WELCOME PAGE ══ -->
 <div class="page active" id="welcome-page">
@@ -318,11 +188,6 @@
 
   <div class="rain-layer" id="rainLayer"></div>
 
-  <!-- Pixel character -->
-  <div class="character-wrap">
-    <canvas class="pixel-canvas" id="pixelChar" width="208" height="256" style="width:104px;height:128px;"></canvas>
-  </div>
-
   <div class="title-card">
     <div class="title-eyebrow">a place for your thoughts</div>
     <div class="title-main">cloud</div>
@@ -338,77 +203,6 @@
     <button class="enter-btn" onclick="goToJournal()">Open my journal →</button>
   </div>
   <div class="swipe-hint">swipe right to enter · swipe left to return</div>
-</div>
-
-
-<!-- ══ JOURNAL PAGE ══ -->
-<div class="page" id="journal-page">
-  <div class="journal-scene">
-    <div class="journal-sky"></div>
-    <div class="window-pane"></div>
-    <div class="journal-rain" id="journalRain"></div>
-    <div class="journal-clouds" id="cloudLayerJournal"></div>
-    <div class="journal-mountains">
-      <svg viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-        <path fill="rgba(122,154,181,0.55)" d="M0,300 L0,180 L200,80 L380,155 L560,55 L740,135 L920,62 L1100,152 L1280,80 L1440,118 L1440,300 Z"/>
-        <path fill="rgba(90,120,140,0.35)" d="M0,300 L0,220 L280,130 L480,200 L680,120 L880,185 L1080,125 L1280,175 L1440,148 L1440,300 Z"/>
-      </svg>
-    </div>
-    <div class="journal-glow"></div>
-  </div>
-
-  <div class="sidebar">
-    <div class="sidebar-logo">cloud</div>
-    <div class="sidebar-tagline">your gentle daily journal</div>
-    <button class="new-entry-btn" onclick="openNewEntry()">
-      <span class="plus">+</span> New Entry
-    </button>
-    <div class="sidebar-section-title">Recent entries</div>
-    <div class="entries-list" id="entriesList"></div>
-    <div class="sidebar-bottom">
-      <button class="back-btn" onclick="goToWelcome()">← Return to home</button>
-      <div class="swipe-note">or swipe left on trackpad</div>
-    </div>
-  </div>
-
-  <div class="journal-main">
-    <div class="empty-state" id="emptyState">
-      <div class="empty-state-glyph">☁</div>
-      <h2>The page is yours.</h2>
-      <p>Begin a new entry whenever you're ready. There's no right way to start — just write.</p>
-    </div>
-
-    <div class="editor-wrap" id="editorWrap" style="display:none;flex-direction:column;">
-      <div class="mood-row">
-        <span class="mood-label">Feeling</span>
-        <button class="mood-btn" data-mood="🌤 calm" onclick="selectMood(this)">🌤 calm</button>
-        <button class="mood-btn" data-mood="🌧 melancholy" onclick="selectMood(this)">🌧 melancholy</button>
-        <button class="mood-btn" data-mood="☀️ hopeful" onclick="selectMood(this)">☀️ hopeful</button>
-        <button class="mood-btn" data-mood="🌪 anxious" onclick="selectMood(this)">🌪 anxious</button>
-        <button class="mood-btn" data-mood="🌿 grateful" onclick="selectMood(this)">🌿 grateful</button>
-      </div>
-      <div class="entry-date-line" id="editorDateLine"></div>
-      <textarea class="entry-title-input" id="entryTitle" placeholder="Give this moment a name…" rows="1" oninput="autoResize(this)"></textarea>
-      <div class="entry-divider"></div>
-      <textarea class="entry-body-input" id="entryBody" placeholder="What's on your mind today? The clouds don't judge…" oninput="updateWordCount()"></textarea>
-      <div class="editor-toolbar">
-        <span class="word-count" id="wordCount">0 words</span>
-        <button class="save-btn" id="saveBtn" onclick="saveEntry()">Save entry</button>
-      </div>
-    </div>
-
-    <div class="view-entry" id="viewEntry" style="display:none;">
-      <div class="view-entry-mood" id="viewMood"></div>
-      <div class="view-entry-date" id="viewDate"></div>
-      <div class="view-entry-title" id="viewTitle"></div>
-      <div class="view-entry-divider"></div>
-      <div class="view-entry-body" id="viewBody"></div>
-      <div class="view-entry-actions">
-        <button class="edit-btn" onclick="editCurrentEntry()">Edit</button>
-        <button class="delete-btn" onclick="deleteCurrentEntry()">Delete</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -467,97 +261,6 @@ function makeClouds(id, count, darkMode) {
 }
 makeClouds('cloudLayerWelcome', 11, false);
 makeClouds('cloudLayerJournal', 7, true);
-
-// ══════════════════════════════════════
-// PIXEL CHARACTER (canvas, 8-bit)
-// ══════════════════════════════════════
-// We draw at 2x pixel resolution (each "pixel" = 2x2 actual canvas pixels → renders crisp at half CSS size)
-const PXSIZE = 13; // canvas pixels per game pixel
-const COLS = 16, ROWS = 20;
-
-// Color palette
-const P = {
-  _: null,                     // transparent
-  S: '#e8c99a', k: '#c9a870',  // skin light/dark
-  H: '#4a5c44', h: '#384834',  // hat
-  C: '#5e6a58', c: '#4a5446',  // coat
-  F: '#96b5c0', f: '#7a9aaa',  // scarf
-  B: '#3a302a',                // boot
-  U: '#7a9ab5', u: '#5c7888',  // umbrella
-  N: '#5c4a3a',                // handle
-  E: '#1a1612',                // eye
-  W: '#f0ebe2',                // eye white
-  X: '#e8a090',                // cheek
-};
-
-// 16×20 pixel map
-const PIX = [
-/* 0 */ '....UUUUUUUU....',
-/* 1 */ '...UUUuUUuUUU...',
-/* 2 */ '..UUUuUUUUuUUU..',
-/* 3 */ '..UUuUUUUUUuUU..',
-/* 4 */ '.UUUuUUUUUUuUUU.',
-/* 5 */ '......NNNN......',
-/* 6 */ '.......NN.......',
-/* 7 */ '....HHHHHHHH....',
-/* 8 */ '...hHHHHHHHHh...',
-/* 9 */ '...hHHHHHHHHh...',
-/*10 */ '....SSSSkkSS....',
-/*11 */ '...SSEESSEESSk..',
-/*12 */ '....SSSSkkSSSS..',
-/*13 */ '....SXSSSSSXSk..',
-/*14 */ '...FFFCCCCCFFFf.',
-/*15 */ '...FfCCCCCCCFf..',
-/*16 */ '....CCCCCCCCCC..',
-/*17 */ '...CCCCCCCCCCCC.',
-/*18 */ '...BBBBk..BBBBk.',
-/*19 */ '...BBBBk..BBBBk.',
-];
-
-function drawPixel(ctx, col, row, color) {
-  if (!color) return;
-  ctx.fillStyle = color;
-  ctx.fillRect(col * PXSIZE, row * PXSIZE, PXSIZE, PXSIZE);
-}
-
-let pixFrame = 0;
-function drawPixelChar() {
-  const canvas = document.getElementById('pixelChar');
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  for (let r = 0; r < PIX.length; r++) {
-    for (let c = 0; c < PIX[r].length; c++) {
-      const ch = PIX[r][c];
-      drawPixel(ctx, c, r, P[ch] || null);
-    }
-  }
-
-  // Eye shine (animated blink every ~120 frames)
-  if (pixFrame % 180 < 10) {
-    // blink — draw eyelid over eyes
-    ctx.fillStyle = P.S;
-    ctx.fillRect(4*PXSIZE, 11*PXSIZE, 2*PXSIZE, PXSIZE);
-    ctx.fillRect(9*PXSIZE, 11*PXSIZE, 2*PXSIZE, PXSIZE);
-  } else {
-    ctx.fillStyle = P.W;
-    ctx.fillRect(4*PXSIZE, 10*PXSIZE, PXSIZE, PXSIZE);
-    ctx.fillRect(9*PXSIZE, 10*PXSIZE, PXSIZE, PXSIZE);
-  }
-
-  // Animated rain drops hitting umbrella — pixel flashes
-  const drops = [[2,0],[12,1],[6,2],[10,0],[14,2]];
-  drops.forEach((d, i) => {
-    if ((pixFrame + i * 17) % 30 < 6) {
-      ctx.fillStyle = 'rgba(190,220,235,0.9)';
-      ctx.fillRect(d[0]*PXSIZE, d[1]*PXSIZE, PXSIZE, PXSIZE/2);
-    }
-  });
-
-  pixFrame++;
-  requestAnimationFrame(drawPixelChar);
-}
-drawPixelChar();
 
 // ══════════════════════════════════════
 // GRASS
