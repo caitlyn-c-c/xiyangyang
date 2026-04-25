@@ -194,10 +194,10 @@ function doLogin(){
 }
 function showErr(el,msg){el.textContent=msg;el.classList.add('show');}
 function loginUser(name){
-  currentUser=name;
+  currentUser = name;
   saveSession(name);
   closeAuth();
-  enterApp();
+  window.location.href = "app.html";
 }
 function logout(){
   currentUser=null;
