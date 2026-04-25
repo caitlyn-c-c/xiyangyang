@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cloud — A Gentle Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --rain-blue:    #7a9ab5;
+    --mist:         #b8cdd8;
+    --fog:          #d6e3ea;
+    --parchment:    #f0ebe2;
+    --moss:         #7a8c6e;
+    --bark:         #5c4a3a;
+    --ink:          #2e2a26;
+    --dusk:         #4a6070;
+    --pale-gold:    #c9b882;
+    --glass:        rgba(240,235,226,0.55);
+    --glass-border: rgba(255,255,255,0.35);
+    --journal-bg:   #3d5060;
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #8ea8b8;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--ink);
+    user-select: none;
+  }
+  textarea, input { user-select: text; }
+
+  .page { display: none; width: 100%; min-height: 100vh; }
+  .page.active { display: flex; }
+
+  /* ══ WELCOME PAGE ══ */
+  #welcome-page { flex-direction: column; position: relative; overflow: hidden; }
+
+  .sky {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,#4d6878 0%,#6b8fa3 30%,#8ea8b8 60%,#a8c0cc 80%,#c4d6de 100%);
+  }
+
+  /* Ghibli sky clouds */
+  .cloud-layer { position:absolute; top:0; left:0; width:100%; height:58%; pointer-events:none; overflow:hidden; }
+  .ghibli-cloud { position:absolute; pointer-events:none; }
+  @keyframes cloudDrift { from{transform:translateX(-110%)} to{transform:translateX(110vw)} }
+  @keyframes cloudDriftR { from{transform:translateX(110vw)} to{transform:translateX(-110%)} }
+
+  .mountains { position:absolute; bottom:28%; width:100%; height:260px; pointer-events:none; }
+  .mountains svg { width:100%; height:100%; }
+
+  .hills { position:absolute; bottom:18%; width:120%; left:-10%; height:200px; pointer-events:none; }
+  .hills svg { width:100%; height:100%; }
+
+  /* Grassy ground */
+  .ground { position:absolute; bottom:0; width:100%; height:22%; overflow:hidden; }
+  .ground-base {
+    position:absolute; inset:0;
+    background:linear-gradient(180deg,#90bf7c 0%,#74a860 30%,#5a8c48 65%,#477040 100%);
+  }
+  #grassSvg { position:absolute; top:-30px; left:0; width:100%; height:65px; }
+  #flowerLayer { position:absolute; inset:0; }
+  .flower { position:absolute; pointer-events:none; bottom:0; }
+
+  .puddle {
+    position:absolute; bottom:4%; border-radius:50%;
+    background:rgba(155,198,220,0.5); filter:blur(1px);
+    animation:puddleRipple 3.5s ease-in-out infinite;
+  }
+  @keyframes puddleRipple { 0%,100%{transform:scaleX(1);} 50%{transform:scaleX(1.05);} }
+  .puddle-1{width:80px;height:18px;left:12%;}
+  .puddle-2{width:120px;height:24px;left:52%;animation-delay:-1.2s;}
+  .puddle-3{width:55px;height:14px;left:76%;animation-delay:-0.6s;}
+
+  .trees { position:absolute; bottom:18%; width:100%; pointer-events:none; }
+
+  /* Rain */
+  .rain-layer { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .drop {
+    position:absolute; top:-20px; width:1.5px;
+    background:linear-gradient(180deg,transparent,rgba(180,210,230,0.7));
+    border-radius:2px; animation:fall linear infinite;
+  }
+  @keyframes fall { to{transform:translateY(110vh) translateX(28px);opacity:0;} }
+
+  .mist-layer {
+    position:absolute; width:200%; height:80px;
+    background:linear-gradient(90deg,transparent 0%,rgba(214,227,234,0.55) 30%,rgba(214,227,234,0.7) 50%,rgba(214,227,234,0.55) 70%,transparent 100%);
+    border-radius:50%; filter:blur(18px); animation:drift linear infinite; pointer-events:none;
+  }
+  @keyframes drift { from{transform:translateX(-50%);} to{transform:translateX(0%);} }
+
+  /* Pixel character */
+  .character-wrap {
+    position:absolute; bottom:21%; left:50%; transform:translateX(-50%);
+    animation:bob 5s ease-in-out infinite;
+    image-rendering:pixelated;
+  }
+  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-4px);} }
+  .pixel-canvas { image-rendering:pixelated; image-rendering:crisp-edges; display:block; }
+
+  /* Title */
+  .title-card { position:absolute; top:12%; left:50%; transform:translateX(-50%); text-align:center; z-index:10; white-space:nowrap; }
+  .title-eyebrow { font-family:'Lato',sans-serif; font-weight:300; font-size:0.75rem; letter-spacing:0.35em; color:rgba(240,235,226,0.75); text-transform:uppercase; margin-bottom:10px; }
+  .title-main {
+    font-family:'EB Garamond',serif; font-size:clamp(5rem,13vw,9rem); font-weight:500;
+    color:var(--parchment); line-height:0.9;
+    text-shadow:0 2px 30px rgba(74,96,112,0.5),0 0 80px rgba(130,170,190,0.3);
+  }
+  .title-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:1.1rem; color:rgba(240,235,226,0.7); margin-top:6px; letter-spacing:0.05em; }
+
+  .weather-badge {
+    position:absolute; top:5%; right:5%;
+    background:var(--glass); border:1px solid var(--glass-border); border-radius:50px;
+    padding:8px 18px; backdrop-filter:blur(12px);
+    display:flex; align-items:center; gap:8px;
+    font-family:'Lato',sans-serif; font-size:0.8rem; font-weight:300; color:var(--dusk); z-index:10;
+  }
+
+  .enter-wrap { position:absolute; bottom:9%; left:50%; transform:translateX(-50%); text-align:center; z-index:10; }
+  .enter-btn {
+    font-family:'EB Garamond',serif; font-size:1rem; font-style:italic;
+    color:rgba(240,235,226,0.85); background:rgba(90,120,140,0.35);
+    border:1px solid rgba(255,255,255,0.3); border-radius:40px; padding:12px 38px;
+    cursor:pointer; backdrop-filter:blur(10px); transition:all 0.35s ease; letter-spacing:0.06em;
+  }
+  .enter-btn:hover { background:rgba(90,120,140,0.6); color:var(--parchment); transform:translateY(-2px); box-shadow:0 8px 30px rgba(60,90,110,0.4); }
+
+  .swipe-hint {
+    position:absolute; bottom:3.5%; left:50%; transform:translateX(-50%);
+    font-family:'Lato',sans-serif; font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase;
+    color:rgba(240,235,226,0.38); z-index:10; animation:hintFade 3s ease-in-out infinite; white-space:nowrap;
+  }
+  @keyframes hintFade { 0%,100%{opacity:0.38;} 50%{opacity:0.7;} }
