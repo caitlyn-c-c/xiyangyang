@@ -1,3 +1,15 @@
+original pixel character code:
+
+.character-wrap {
+    position:absolute; bottom:21%; left:50%; transform:translateX(-50%);
+    animation:bob 5s ease-in-out infinite;
+    image-rendering:pixelated;
+  }
+  @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(-4px);} }
+  .pixel-canvas { image-rendering:pixelated; image-rendering:crisp-edges; display:block; }
+
+
+
 
 /* ══ Kathy's JOURNAL PAGE ══ */
   #journal-page { flex-direction:row; min-height:100vh; position:relative; overflow:hidden; background:var(--journal-bg); }
